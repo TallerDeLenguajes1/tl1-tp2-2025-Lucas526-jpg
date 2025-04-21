@@ -10,18 +10,34 @@ struct compu {
 
 void cargarDatos(compu *compu,char arre[][10]);
 
+void guardarPcsArreglo(compu *pc1,compu *pc2,compu *pc3,compu *pc4,compu *pc5, compu pcs[]);
+
+void listarPCs(compu pcs[], int cantidad);
+
+void mostrarMasVieja(struct compu pcs[], int cantidad);
+
 int main(){
-    compu compu1, compu2, compu3, compu4, compu5;
+    compu compu1, compu2, compu3, compu4, compu5, pcs[5];
+    int cantidadPcs = 5;
     char tipos[6][10] = {"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
 
-    /* genero los datos aleatorios de compu 1 */
+    /* genero los datos aleatorios */
     cargarDatos(&compu1,tipos);
+    cargarDatos(&compu2,tipos);
+    cargarDatos(&compu3,tipos);
+    cargarDatos(&compu4,tipos);
+    cargarDatos(&compu5,tipos);
+
+    //cargo el arreglo con las variables struc
+    guardarPcsArreglo(&compu1,&compu2,&compu3,&compu4,&compu5,pcs);
 
     //muestro en pantalla
-    printf("Velocidad: %d\n",compu1.velocidad);
-    printf("Anio: %d\n",compu1.anio);
-    printf("Cantidad de nucleos: %d\n",compu1.cantidad_nucleos);
-    printf("Tipo cpu: %s\n",compu1.tipo_cpu);
+    listarPCs(pcs,cantidadPcs);
+
+    //muestro la pc mas vieja
+    mostrarMasVieja(pcs,cantidadPcs);
+
+    return 0;
 }
 
 void cargarDatos(compu *compu,char arre[][10]){
@@ -29,4 +45,41 @@ void cargarDatos(compu *compu,char arre[][10]){
     compu->anio= 2015 + rand() % (2024-2015+1);
     compu->cantidad_nucleos=1 + rand() % 8;
     compu->tipo_cpu=arre[1 + rand() % 6];
+}
+
+void guardarPcsArreglo(compu *pc1,compu *pc2,compu *pc3,compu *pc4,compu *pc5, compu pcs[]){
+    pcs[0]=*pc1;
+    pcs[1]=*pc2;
+    pcs[2]=*pc3;
+    pcs[3]=*pc4;
+    pcs[4]=*pc5;
+}
+
+void listarPCs(compu pcs[], int cantidad){
+    for (int i = 0; i < cantidad; i++)
+    {
+        printf("Velocidad: %d GHz\n",pcs[i].velocidad);
+        printf("Anio: %d\n",pcs[i].anio);
+        printf("Cantidad de nucleos: %d\n",pcs[i].cantidad_nucleos);
+        printf("Tipo cpu: %s\n",pcs[i].tipo_cpu);
+        printf("\n");
+    }
+}
+
+void mostrarMasVieja(struct compu pcs[], int cantidad){
+    int j,antiguo=5000;
+    for (int i = 0; i < cantidad; i++)
+    {
+        if (pcs[i].anio < antiguo)
+        {
+            j=i;
+            antiguo=pcs[i].anio;
+        }
+    }
+    printf("La pc mas vieja tiene estas caracteristicas:\n");
+    printf("Velocidad: %d GHz\n",pcs[j].velocidad);
+    printf("Anio: %d\n",pcs[j].anio);
+    printf("Cantidad de nucleos: %d\n",pcs[j].cantidad_nucleos);
+    printf("Tipo cpu: %s\n",pcs[j].tipo_cpu);
+    printf("\n");
 }
