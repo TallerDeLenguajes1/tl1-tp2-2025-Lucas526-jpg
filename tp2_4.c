@@ -14,7 +14,9 @@ void guardarPcsArreglo(compu *pc1,compu *pc2,compu *pc3,compu *pc4,compu *pc5, c
 
 void listarPCs(compu pcs[], int cantidad);
 
-void mostrarMasVieja(struct compu pcs[], int cantidad);
+void mostrarMasVieja(compu pcs[], int cantidad);
+
+void mostrarMasVeloz(compu pcs[], int cantidad);
 
 int main(){
     compu compu1, compu2, compu3, compu4, compu5, pcs[5];
@@ -36,6 +38,9 @@ int main(){
 
     //muestro la pc mas vieja
     mostrarMasVieja(pcs,cantidadPcs);
+
+    //muestro la pc mas veloz
+    mostrarMasVeloz(pcs,cantidadPcs);
 
     return 0;
 }
@@ -66,7 +71,7 @@ void listarPCs(compu pcs[], int cantidad){
     }
 }
 
-void mostrarMasVieja(struct compu pcs[], int cantidad){
+void mostrarMasVieja(compu pcs[], int cantidad){
     int j,antiguo=5000;
     for (int i = 0; i < cantidad; i++)
     {
@@ -77,6 +82,24 @@ void mostrarMasVieja(struct compu pcs[], int cantidad){
         }
     }
     printf("La pc mas vieja tiene estas caracteristicas:\n");
+    printf("Velocidad: %d GHz\n",pcs[j].velocidad);
+    printf("Anio: %d\n",pcs[j].anio);
+    printf("Cantidad de nucleos: %d\n",pcs[j].cantidad_nucleos);
+    printf("Tipo cpu: %s\n",pcs[j].tipo_cpu);
+    printf("\n");
+}
+
+void mostrarMasVeloz(compu pcs[], int cantidad){
+    int j,velocidad=0;
+    for (int i = 0; i < cantidad; i++)
+    {
+        if (pcs[i].velocidad > velocidad)
+        {
+            j=i;
+            velocidad=pcs[i].velocidad;
+        }
+    }
+    printf("La pc mas veloz tiene estas caracteristicas:\n");
     printf("Velocidad: %d GHz\n",pcs[j].velocidad);
     printf("Anio: %d\n",pcs[j].anio);
     printf("Cantidad de nucleos: %d\n",pcs[j].cantidad_nucleos);
